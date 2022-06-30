@@ -8,7 +8,7 @@ const Context = ({children}) => {
     <UserContext.Provider value={{user, setUser}}>
         {children}
     </UserContext.Provider>
-)
+  )
 }
 
 export {UserContext, Context}

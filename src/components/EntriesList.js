@@ -1,8 +1,16 @@
 import { AppBar, Box, Divider, FormControl, InputLabel, List, ListItem, ListItemText, MenuItem, Select, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from '../api/axios'
 
 
 const EntriesList = () => {
+  const [entries, setEntries] = useState([])
+  useEffect(() => {
+    axios.get('/users/1').then((response)=>{
+      setEntries(response.data.entries)
+  })
+  },[])
+
   return (
     <div style={{border:'1px solid grey'}}>
       <AppBar color='transparent'  position='static'>
@@ -23,8 +31,12 @@ const EntriesList = () => {
       </AppBar>
       <List>
         <ListItem>
-          <ListItemText
-            primary="Title"
+          {
+            entries.map((entry)=>{
+              return(
+                <ListItemText
+            primary={`${entry.title}`}
+            key={entry.id}
             secondary={
               <React.Fragment>
                 <Typography
@@ -33,11 +45,14 @@ const EntriesList = () => {
                   variant="body2"
                   color="text.primary"
                 >
-                  Entry preview
+                  {entry.body}
                 </Typography>
               </React.Fragment>
             }
           />
+              )
+            })
+          }
         </ListItem>
         <Divider/>
       </List>
