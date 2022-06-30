@@ -1,6 +1,8 @@
 import { Dialog, DialogTitle, TextField } from '@material-ui/core'
 import { makeStyles } from '@mui/styles';
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/Context';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,17 +21,33 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const Signup = ({ open, handleClose }) => {
+  // const {setUser} = useContext(UserContext)
+  const [userObject, setUserObject] =useState({
+    name: "",
+    email: "",
+    password: ""
+  })
+  // const history = useNavigate()
+
+  const handleChange = (e) => {
+    setUserObject({
+        ...userObject,
+        [e.target.id]: e.target.value
+    })
+  }
+  const handleSubmit =(e)=>{
+    e.preventDefault()
+  }
+
   const classes = useStyles()
 
   return (
-    <Dialog fullWidth open={open} onClose={handleClose} 
-    overlayStyle={{backgroundColor: '#E5D9EB'}}
-      >
+    <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle>Sign Up Here:</DialogTitle>
         <form className={classes.root}>
-          <TextField margin='dense' label="Name" variant="outlined" required fullWidth  />
-          <TextField margin='dense' label="Email" variant="outlined" type="email" required fullWidth />
-          <TextField margin='dense' label="Password" variant="outlined" type="password" required fullWidth />
+          <TextField onChange={handleChange} margin='dense' label="Name" id="name" variant="outlined" type='text' value={userObject.name} required fullWidth  />
+          <TextField onChange={handleChange} margin='dense' label="Email" id='email' variant="outlined" type="email" value={userObject.email} required fullWidth />
+          <TextField onChange={handleChange} margin='dense' label="Password" id='password' variant="outlined" type="password" value={userObject.password} required fullWidth />
           <button className={classes.btn}>Sign Up</button>
         </form>
     </Dialog>
