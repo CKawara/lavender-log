@@ -1,12 +1,12 @@
 import './App.css';
-import Entries from './Entries';
-// import LogIn from './LogIn';
+// import Entries from './Entries';
+import LogIn from './LogIn';
 
 function App() {
   return (
     <div className="App">
-      {/* <LogIn/> */}
-      <Entries/>
+      <LogIn/>
+      {/* <Entries/> */}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { Dialog, DialogTitle, TextField } from '@material-ui/core'
 import { makeStyles } from '@mui/styles';
-import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/Context';
+import React, {useState } from 'react'
+import axios from '../api/axios'
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,8 +35,21 @@ const Signup = ({ open, handleClose }) => {
         [e.target.id]: e.target.value
     })
   }
-  const handleSubmit =(e)=>{
+  const handleSubmit =async(e)=>{
     e.preventDefault()
+    const response = await axios.post('/users',
+      JSON.stringify(userObject),
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+    console.log(JSON.stringify(response?.data))
+    setUserObject({
+      name: "",
+      email: "",
+      password: ""
+    })
+    // history('/')
   }
 
   const classes = useStyles()
@@ -44,11 +57,11 @@ const Signup = ({ open, handleClose }) => {
   return (
     <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle>Sign Up Here:</DialogTitle>
-        <form className={classes.root}>
+        <form onSubmit={handleSubmit} className={classes.root}>
           <TextField onChange={handleChange} margin='dense' label="Name" id="name" variant="outlined" type='text' value={userObject.name} required fullWidth  />
           <TextField onChange={handleChange} margin='dense' label="Email" id='email' variant="outlined" type="email" value={userObject.email} required fullWidth />
           <TextField onChange={handleChange} margin='dense' label="Password" id='password' variant="outlined" type="password" value={userObject.password} required fullWidth />
-          <button className={classes.btn}>Sign Up</button>
+          <button type='submit' className={classes.btn}>Sign Up</button>
         </form>
     </Dialog>
   )
