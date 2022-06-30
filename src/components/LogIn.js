@@ -1,9 +1,13 @@
 import { Button, Grid, Hidden, TextField, Typography } from '@mui/material'
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { makeStyles } from '@mui/styles';
 import Image from '../assets/loginImage.jpg'
 import Signup from './Signup';
+import { UserContext } from "../context/Context";
+import { useNavigate } from 'react-router-dom';
+import axios from '../api/axios';
+
 
 const useStyles = makeStyles({
   logo:{
@@ -37,7 +41,34 @@ const useStyles = makeStyles({
   }
 })
 const LogIn = () => {
+  const {setUser} = useContext(UserContext);
   const [open, setOpen] = useState(false);
+  const [loggedInObj, setLoggedInObj] = useState({
+    name: "",
+    password: ""
+   
+  });
+  const history = useNavigate()
+
+  const handleChange = (e) => {
+    setLoggedInObj({
+        ...loggedInObj,
+        [e.target.id]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+    const response = await axios.post('/login',
+      JSON.stringify(loggedInObj),
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    )
+    console.log(JSON.stringify(response?.data.user));
+    setUser(response?.data.user)
+    history('/entries')
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -69,9 +100,9 @@ const LogIn = () => {
         </Hidden>
         <div className={classes.loginForm}>
           <Typography style={{marginBottom:15}}>Log in here:</Typography>
-          <form className={classes.root}>
-            <TextField margin='dense' label="Name" variant="outlined" required fullWidth  />
-            <TextField margin='dense' label="Password" variant="outlined" type="password" required fullWidth />
+          <form onSubmit={handleSubmit} className={classes.root}>
+            <TextField onChange={handleChange} margin='dense' label="Name" id="name" variant="outlined" value={loggedInObj.name} type='text' required fullWidth  />
+            <TextField onChange={handleChange} margin='dense' label="Password" id='password' variant="outlined" value={loggedInObj.password} type="password" required fullWidth />
             <button className={classes.btn}>Log In</button>
           </form>
           <Typography>Don’t have an account? 

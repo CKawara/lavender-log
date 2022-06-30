@@ -27,7 +27,6 @@ const Signup = ({ open, handleClose }) => {
     email: "",
     password: ""
   })
-  // const history = useNavigate()
 
   const handleChange = (e) => {
     setUserObject({
@@ -49,7 +48,6 @@ const Signup = ({ open, handleClose }) => {
       email: "",
       password: ""
     })
-    // history('/')
   }
 
   const classes = useStyles()
