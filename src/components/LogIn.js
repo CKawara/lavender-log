@@ -1,20 +1,18 @@
 import { Button, Grid, Hidden, TextField, Typography } from '@mui/material'
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@mui/styles';
 import Image from '../assets/loginImage.jpg'
-import { Box } from '@material-ui/core';
+import Signup from './Signup';
 
 const useStyles = makeStyles({
   logo:{
     flexGrow:1,
     padding: '2%',
-    cursor: 'pointer', 
-    fontSize: 'xx-large'
+    fontSize: 'large'
   },
   login:{
     height:'100vh',
-    // backgroundImage:`url(${Image}`,
     backgroundColor:'#E6E6FA'
   },
   loginForm:{
@@ -25,16 +23,30 @@ const useStyles = makeStyles({
     margin:'10%',
     display: 'flex',
     flexDirection:'column',
-    justifyContent:'center'
+    justifyContent:'center',
+    alignItems:'center'
 
   },
   btn:{
     backgroundColor:'#7B6D8D',
     color: '#E5D9EB',
-    padding: '2%'
+    margin: '2%',
+    padding: '2%',
+    width: '30%',
+    fontWeight: 'bolder'
   }
 })
 const LogIn = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const classes = useStyles()
   return ( 
     <Grid container>
@@ -49,7 +61,7 @@ const LogIn = () => {
           </div>
         </Hidden>
       </Grid>
-      <Grid item md={7} sm={12} style={{backgroundColor:'#E6E6FA', height:'100vh'}}>
+      <Grid item xs={12} md={7} style={{backgroundColor:'#E6E6FA', height:'100vh'}}>
         <Hidden mdUp>
           <Typography className={classes.logo} style={{fontFamily:'Bubblegum Sans',}}>
             LITTLE <br/> LAVENDER <br/> LOG <DriveFileRenameOutlineOutlinedIcon/>
@@ -57,28 +69,18 @@ const LogIn = () => {
         </Hidden>
         <div className={classes.loginForm}>
           <Typography style={{marginBottom:15}}>Log in here:</Typography>
-          <Box component='form' >
-            <Grid container direction={"column"} spacing={3}>
-              <Grid item>
-                <TextField type='email' label="Email" variant="outlined" fullWidth/>
-              </Grid>
-              <Grid item>
-                <TextField label="Last Name" variant="outlined" fullWidth/>
-              </Grid>
-              <Grid item>
-                <button className={classes.btn}
-                    // onClick={handleSubmit}
-                >
-                  Subscribe
-                </button>  
-              </Grid>
-              <Grid item>
-                <Typography>Don’t have an account? <Button 
-                sx={{color:'black', fontWeight:'Bolder'}}
-                >SignUp</Button></Typography>
-              </Grid>
-            </Grid>
-          </Box>
+          <form className={classes.root}>
+            <TextField margin='dense' label="Name" variant="outlined" required fullWidth  />
+            <TextField margin='dense' label="Password" variant="outlined" type="password" required fullWidth />
+            <button className={classes.btn}>Log In</button>
+          </form>
+          <Typography>Don’t have an account? 
+            <Button 
+            sx={{color:'black', fontWeight:'Bolder'}}
+            onClick={handleOpen}
+            >SignUp</Button>
+          </Typography>
+          <Signup open={open} handleClose={handleClose}/>
         </div>
       </Grid>
     </Grid>
