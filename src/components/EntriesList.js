@@ -1,18 +1,11 @@
 import { AppBar, Box, Divider, FormControl, IconButton, InputLabel, List, ListItem, ListItemText, MenuItem, Select, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import axios from '../api/axios';
 
 
-const EntriesList = () => {
-  const [entries, setEntries] = useState([])
+const EntriesList = ({entries, setEntries}) => {
 
-  useEffect(()=>{
-      axios.get('/users/1').then((response)=>{
-          setEntries(response.data.entries)
-      })
-  },[])
- 
   const handleClick =async(id)=>{
     await axios.delete(`/entries/${id}`)
     setEntries(
