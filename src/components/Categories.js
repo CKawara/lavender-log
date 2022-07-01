@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { List, ListItem, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import axios from '../api/axios'
 // import { UserContext } from '../context/Context';
@@ -18,7 +18,16 @@ const Categories = () => {
         )
     })
   return (
-    <div>{list}</div>
+      <>
+      <List>
+          <ListItem>
+          <Typography>Categories:</Typography>
+          </ListItem>
+          <ListItem>
+              <Typography>{list}</Typography>
+          </ListItem>
+      </List>
+      </>
   )
 }
 

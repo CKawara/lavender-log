@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 
-const Sidebar = () => {
+const Sidebar = ({entries}) => {
     const [open, setOpen]=useState(false)
     const [state, setState] = React.useState({
         right: false,
@@ -58,7 +58,7 @@ const Sidebar = () => {
                         <React.Fragment key={anchor}>
                             <Button onClick={toggleDrawer(anchor, true)}>My Logs</Button>
                             <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-                                <EntriesList/>
+                                <EntriesList entries={entries}/>
                             </Drawer>
                         </React.Fragment>
                     ))}

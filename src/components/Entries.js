@@ -1,10 +1,11 @@
 import { Grid, Hidden } from '@mui/material'
-import React from 'react'
 import EntriesList from './EntriesList'
 import EntryView from './EntryView'
 import Sidebar from './Sidebar'
+import React from 'react'
 
 const Entries = () => {
+    
   return (
     <div style={{backgroundColor: '#E6E6FA'}}>
         <Grid container>
@@ -13,7 +14,7 @@ const Entries = () => {
             </Grid>
             <Hidden mdDown>
                 <Grid item md={4}>
-                    <EntriesList/>
+                    <EntriesList />
                 </Grid>
             </Hidden>
             <Grid item xs={10} md={6}>
