@@ -6,7 +6,7 @@
 
 This project is divided into two repositories:
 * A React frontend
-* A Sinatra backend
+* A Sinatra backend which can be found [here](https://github.com/CKawara/Little-lavender-log-backend)
 
 ## Description
 This is a web application that mimics a diary. It is a gratitude journal to help its users keep track of all the things they are grateful for everyday.
